@@ -11,10 +11,10 @@ const SELECT_BY_RECEIVER_ID = 'SELECT * FROM "conversation_report" WHERE receive
 
 const conversationReportModel = {
   create({
-    conversationId, giverId, receiverId, score, review, reportedLevelId,
+    conversationId, giverId, receiverId, score, review, reportedLevel,
   }) {
     return new Promise((resolve, reject) => {
-      const params = [conversationId, giverId, receiverId, score, review, reportedLevelId];
+      const params = [conversationId, giverId, receiverId, score, review, reportedLevel];
 
       return pool.query(INSERT_REPORT, params, (err, result) => {
         if (err) return reject(err);
