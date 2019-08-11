@@ -12,7 +12,7 @@ const conversationController = {
     };
 
     try {
-      const newConversation = await conversationModel.createConversation(params);
+      const newConversation = await conversationModel.create(params);
       res.locals.conversation = newConversation;
       return next();
     } catch (error) {
@@ -25,13 +25,13 @@ const conversationController = {
       conversationId: req.body.conversationId,
       giverId: req.body.giverId,
       receiverId: req.body.receiverId,
-      score: req.body.stars,
+      score: req.body.score,
       review: req.body.review,
       reportedLevel: req.body.reportedLevel,
     };
 
     try {
-      const newReport = await conversationReportModel.createReport(params);
+      const newReport = await conversationReportModel.create(params);
       res.locals.report = newReport;
       return next();
     } catch (error) {
