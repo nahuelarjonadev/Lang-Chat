@@ -94,14 +94,7 @@ const model = {
         if (error) return reject(error);
         const user = result.rows[0];
         const formattedUser = toCamel(user);
-        formattedUser.languageArray = formattedUser.languageArray.reduce((acc, str) => {
-          const parsedArray = JSON.parse(str.replace('\\', ''));
-          const language = parsedArray[0].label;
-          const level = parsedArray[1].label;
-          if (!acc[level]) acc[level] = [];
-          acc[level].push(language);
-          return acc;
-        }, {});
+        formattedUser.languageArray = getFormattedLanguageArray(formattedUser.languageArray);
         return resolve({ user: formattedUser });
       });
     });
@@ -110,6 +103,17 @@ const model = {
 
 function getFormattedUser(user) {
   return toCamel(user, ['id', 'username', 'picture_url', 'about_me']);
+}
+
+function getFormattedLanguageArray(languageArray) {
+  return languageArray.reduce((acc, str) => {
+    const parsedArray = JSON.parse(str);
+    const language = parsedArray[0].label;
+    const level = parsedArray[1].label;
+    if (!acc[level]) acc[level] = [];
+    acc[level].push(language);
+    return acc;
+  }, {});
 }
 
 module.exports = model;
